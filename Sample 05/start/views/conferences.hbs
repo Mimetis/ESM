@@ -1,0 +1,24 @@
+<h1> {{:title}}</h1>
+
+<script type="text/x-handlebars" id="conferencesTemplateId">
+\{{#listConferences conferences}}
+    <div class="card">
+        <div class="card-header bg-primary text-light">\{{talk.title}}</div>
+        <div class="card-body">
+            <div class="card-subtitle mb-2 text-muted">\{{fromTime}}-\{{toTime}}. \{{talk.talkType}} / \{{talk.track}}</div>
+        
+            <div class="card-text">\{{talk.summary}}</div>
+        </div>
+        <ul class="list-group list-group-flush">
+        \{{#each talk.speakers}}
+            <li class="list-group-item bg-light text-secondary">
+                <i class="fas fa-user"></i>
+                <a href="/speaker?search=\{{name}}">\{{name}}</a>
+            </li>
+        \{{/each}}
+        </ul>
+    </div>
+\{{/listConferences}}
+</script>
+
+<div id="conferences"></div>

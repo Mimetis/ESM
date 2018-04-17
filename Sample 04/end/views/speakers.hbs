@@ -1,0 +1,23 @@
+<script src='https://unpkg.com/systemjs@0.21.0/dist/system-production.js'></script>
+
+<script>
+    // because we can't use "defer" attribute without "src" 
+    document.addEventListener("DOMContentLoaded", async (ev) => {
+        let legacy = await System.import('/javascripts/index.legacy.js');
+        let sp = new legacy.speakerPage();
+        await sp.loadAsync();
+    });
+
+</script>
+
+<script type="module">
+    import { speakerPage } from './javascripts/index.es.js'
+    new speakerPage().loadAsync();
+</script>
+
+
+<h1>{{:title}}</h1>
+
+
+
+<div id="speakers"></div>

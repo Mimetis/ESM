@@ -1,0 +1,46 @@
+<h1> {{:title}}</h1>
+
+<div class="row">
+    <div class='col-1'>
+        <a href="#" id="prev" name="prev">
+            <i class="fas fa-arrow-alt-circle-left fa-2x"></i>
+        </a>
+    </div>
+    <div class='col-1 offset-10 text-right'>
+        <a href="#" id="next" name="next">
+            <i class="fas fa-arrow-alt-circle-right fa-2x"></i>
+        </a>
+    </div>
+</div>
+
+
+<script type="text/x-handlebars" id="speakerTemplateId">
+
+\{{#listSpeakers speakers}}
+<div class="card mb-5" style="height: 20rem;">
+    <div class="card-body text-center">
+        <div>
+            \{{#if avatarURL}}
+            <img src="\{{avatarURL}}" class="rounded-circle" style="width:100px;" alt="\{{firstName}} \{{lastName}}"> \{{else}}
+            <img src="/images/unknown.png" class="rounded-circle" style="width:100px;" alt="\{{firstName}} \{{lastName}}"> \{{/if}}
+        </div>
+        <h5 class="card-title mt-4">
+            <a href="/speaker?search=\{{firstName}} \{{lastName}}">\{{firstName}} \{{lastName}}</a>
+        </h5>
+        <h6 class="card-subtitle mt-3">
+            \{{company}}
+        </h6>
+    </div>
+    <div class="card-footer text-muted">
+        \{{#if twitter}}
+        <i class="fab fa-twitter"></i>
+        <a href="http://www.twitter.com/\{{twitter}}" class="card-link" style="margin-left:10px;">\{{twitter}}</a>
+        \{{else}} &nbsp; \{{/if}}
+
+    </div>
+</div>
+\{{/listSpeakers}}
+
+</script>
+
+<div id="speakers"></div>

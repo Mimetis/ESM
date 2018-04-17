@@ -1,0 +1,51 @@
+<h1> {{:title}}</h1>
+
+<script type="text/x-handlebars" id="speakerTemplateId">
+<div class='row mt-2'>
+    <div class='col'>
+        <div>   
+            \{{#if avatarURL}}
+            <img src="\{{avatarURL}}" class="rounded-circle" style="width:100px;" alt="\{{firstName}} \{{lastName}}"> 
+            \{{else}}
+            <img src="/images/unknown.png" class="rounded-circle" style="width:100px;" alt="\{{firstName}} \{{lastName}}"> \{{/if}}
+        </div>                
+    </div>
+    <div class='col'>
+         <h5 class="">
+            \{{firstName}} \{{lastName}}
+        </h5>
+        <h6 class="text-muted">
+            \{{company}}
+        </h6>
+        <div >
+            \{{#if twitter}}
+            <i class="fab fa-twitter"></i>
+            <a href="http://www.twitter.com/\{{twitter}}" class="card-link" style="margin-left:10px;">\{{twitter}}</a>
+            \{{else}} &nbsp; \{{/if}}
+        </div> 
+    </div>
+</div>
+<div class="row">
+    <div class='col'>
+        <div>\{{{bioAsHtml}}}</div>
+    </div>
+</div>
+</script>
+
+<script type="text/x-handlebars" id="conferencesTemplateId">
+\{{#listConferences talks}}
+    <div class="card">
+        <div class="card-header bg-primary text-light">\{{title}}</div>
+        <div class="card-body">
+            <div class="card-subtitle mb-2 text-muted">\{{talkType}} / \{{track}}</div>
+        
+            <div class="card-text">\{{{summaryAsHtml}}}</div>
+        </div>
+    </div>
+\{{/listConferences}}
+</script>
+
+
+<div id="speakers"></div>
+
+<div id="conferences"></div>

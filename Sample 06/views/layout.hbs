@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@4.0.5/dist/handlebars.min.js"></script>
+
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <input type="hidden" name="routerState" id="routerState" value="{{state}}">
+
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Devoxx 2018</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {{#if index}}active{{/if}}">
+          <a class="nav-link" href="/">Home
+          </a>
+        </li>
+        <li class="nav-item {{#if speakers}}active{{/if}}">
+          <a class="nav-link" href="/speakers">Speakers
+          </a>
+        </li>
+        <li class="nav-item dropdown {{#if conferences}}active{{/if}}">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Conferences
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/conferences?day=wednesday">Wednesday</a>
+            <a class="dropdown-item" href="/conferences?day=thursday">Thursday</a>
+            <a class="dropdown-item" href="/conferences?day=friday">Friday</a>
+        </li>
+      </ul>
+      <form class="form-inline mt-2 mt-md-0" action="/speaker" method="POST">
+        <input class="form-control mr-sm-2" name="search" id="search" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      </div>
+  </nav>
+
+
+  <div class="container">
+    {{{body}}}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script nomodule src='https://unpkg.com/systemjs@0.21.0/dist/system-production.js'></script>
+
+  <script nomodule>
+    System.import('/javascripts/index.legacy.js');
+  </script>
+  <script type="module" src='/javascripts/index.es.js'></script>
+
+</body>
+
+</html>

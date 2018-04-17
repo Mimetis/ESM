@@ -1,0 +1,27 @@
+<script type="module" src="javascripts/module.js"></script>
+<script nomodule defer src="javascripts/nomodule.js"></script>
+
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<div id="supportId"></div>
+
+<div class="mt-2">
+    <button id="bioButton" class="btn btn-primary">Getting Bio from someone</button>
+    <div id="bioId"></div>
+
+    <script type="module">
+        $(() => {
+            let btnBio = $("#bioButton");
+
+            btnBio.click(async () => {
+
+                var bioModule = await import('/javascripts/bio.js');
+                var bio = new bioModule.bio();
+                let bioText = bio.getBio();
+                $("#bioId").html(bioText);
+            })
+
+        })
+    </script>
+</div>
