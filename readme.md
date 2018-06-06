@@ -31,7 +31,7 @@ Create 3 files:
 * people.ts
 * speakerService.ts
 
-*people.ts:*
+**Copy/Paste** the people.ts file, and explain the export pattern
 
 ``` typescript
 export class speaker {
@@ -60,7 +60,24 @@ export class cat {
 }
 ```
 
-*speakerService.ts*:
+**Copy/Paste** this `speakerService.ts` file, and complete with the solution below :
+
+``` typescript
+let url = "http://cfp.devoxx.fr/api/conferences/DevoxxFR2018/speakers";
+
+async function getAllSpeakers(): Promise<Array<speaker>> {
+
+    var response:any;
+    var speakersJson: Array<any>;
+    var speakers = speakersJson.map(s => new speaker(s.firstName, s.lastName, s.company));
+
+    return speakers;
+
+}
+
+```
+
+Solution:
 
 ``` typescript
 import { speaker } from "./people";
@@ -81,7 +98,43 @@ async function getAllSpeakers(): Promise<Array<speaker>> {
 export default getAllSpeakers;
 ```
 
-*app.ts*:
+and explain default pattern
+
+``` typescript
+import { speaker } from "./people";
+import fetch from "node-fetch";
+
+let url = "http://cfp.devoxx.fr/api/conferences/DevoxxFR2018/speakers";
+
+export default async () => {
+
+    var response = await fetch(url);
+    var speakersJson: Array<any> = await response.json();
+    var speakers = speakersJson.map(s => new speaker(s.firstName, s.lastName, s.company));
+
+    return speakers;
+
+};
+
+// export default getAllSpeakers;
+```
+
+
+**Copy/Paste** this `app.ts` file, and complete with the solution below :
+
+``` typescript
+// (async () => {
+
+//     var speakers = await getAllSpeakers();
+
+//     speakers.forEach(speaker => {
+//         console.log(speaker.getFullName());
+//     });
+
+// })();
+```
+
+Solution :
 
 ``` typescript
 import { speaker } from "./people";
@@ -227,7 +280,7 @@ ReferenceError: $ is not defined
 
 This demo will focus on:
 
-* Showing how to works whith ES modules in a browse application
+* Showing how to works whith ES modules in a boilerplate browser application
 * Showing why we should add extensions to export file
 * Showing on which browsers it actually works
 
@@ -306,7 +359,7 @@ export default [
             sourcemap: true
         },
     }
-
+]
 ```
 
 Using Rollup to make it work:
@@ -326,7 +379,7 @@ Replace in `views/speaker.hbs`, with this code, and explains that we can't use `
 <script src='https://unpkg.com/systemjs@0.21.0/dist/system-production.js'></script>
 
 <script>
-    // because we can't use "defer" attribute without "src" 
+    // because we can't use "defer" attribute without "src"
     document.addEventListener("DOMContentLoaded", async (ev) => {
         let legacy = await System.import('/javascripts/index.legacy.js');
         let sp = new legacy.speakerPage();
@@ -349,6 +402,22 @@ This demo will focus on:
 * Show that we don't use a script anymore in page, but instead, a script in `layout.hbs`.
 * show the `router` singleton pattern.
 * going for **mjs** modules with nodeJS
+
+### Showing the `router` singleton pattern
+
+In any browser, on page `/Spakers` show that `router` is never recreated, and  `speakerPage` is recreated
+
+Show the code of `router.js`
+
+``` javascript
+// singleton
+export default new router();
+
+// // Or
+// let iRouter = new router();
+// export { iRouter };
+
+```
 
 ### Migrate to .mjs files
 
@@ -424,9 +493,9 @@ Show the code in `/index.hbs` file:
 </script>
 ```
 
-
-
 ## References
+
+Thanks for all these guys who shared / works on awesome stuffs, about ESM:
 
 * [Mozilla reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 * [Testing browser support](https://cdn.rawgit.com/jakearchibald/6110fb6df717ebca44c2e40814cc12af/raw/7fc79ed89199c2512a4579c9a3ba19f72c219bd8/)
