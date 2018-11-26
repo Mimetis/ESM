@@ -7,21 +7,21 @@
   },
   "dependencies": {
     "@types/urijs": "^1.15.37",
-    "body-parser": "~1.18.2",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.15.5",
-    "hbs": "~4.0.1",
-    "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "debug": "^2.6.9",
+    "express": "^4.16.4",
+    "hbs": "^4.0.1",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.5.0",
     "urijs": "^1.19.1"
   },
   "devDependencies": {
-    "@types/handlebars": "^4.0.37",
-    "@types/jquery": "^3.3.1",
+    "@types/handlebars": "^4.0.39",
+    "@types/jquery": "^3.3.22",
     "rollup": "^0.57.1",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-uglify": "^3.0.0"
   }
 }
