@@ -16,8 +16,10 @@ This demo will focus on:
 * Writing modules in **ESM** style.
 * Transpiling for **CommonJS** / **AMD** with **TypeScript**.
 
-Create an empty project, and initialize with **NodeJS** / **TypeScript**:
+Open **/Demo01/start** folder. The project is starter initiliazed with **NodeJS** / **TypeScript**, and the **node-fetch** module:
 
+
+If you want to create from scratch, here are the command lines:
 ``` cmd
 npm init -f
 tsc --init
@@ -200,7 +202,7 @@ This demo will focus on:
 * Showing how to load a script version for non compatible browsers with `nomodule` attribute
 * Showing why `defer` is important when working with **Modules**
 
-Create an express application, using **hbs** view engine.
+Open **Demo2/start** folder or create an express application, using **hbs** view engine.
 
 ``` cmd
 express -v hbs
@@ -213,7 +215,7 @@ Adding **javascript files** in `layout.hbs`, just before `</body>`
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 ```
 
-Adding a new file `javascripts/module.js`
+Adding a new file `javascripts/module.js` (already done in starter folder)
 
 ``` javascript
 $(() => {
@@ -376,9 +378,9 @@ rollup -c -w
 Replace in `views/speaker.hbs`, with this code, and explains that we can't use `defer` without the `src` attribute:
 
 ``` html
-<script src='https://unpkg.com/systemjs@0.21.0/dist/system-production.js'></script>
+<script nomodule src='https://unpkg.com/systemjs@0.21.0/dist/system-production.js'></script>
 
-<script>
+<script nomodule>
     // because we can't use "defer" attribute without "src"
     document.addEventListener("DOMContentLoaded", async (ev) => {
         let legacy = await System.import('/javascripts/index.legacy.js');

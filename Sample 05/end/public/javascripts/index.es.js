@@ -36,9 +36,9 @@ var punycode = createCommonjsModule(function (module, exports) {
 (function(root) {
 
 	/** Detect free variables */
-	var freeExports = 'object' == 'object' && exports &&
+	var freeExports = exports &&
 		!exports.nodeType && exports;
-	var freeModule = 'object' == 'object' && module &&
+	var freeModule = module &&
 		!module.nodeType && module;
 	var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal;
 	if (
@@ -541,15 +541,7 @@ var punycode = createCommonjsModule(function (module, exports) {
 	/** Expose `punycode` */
 	// Some AMD build optimizers, like r.js, check for specific condition patterns
 	// like the following:
-	if (
-		typeof undefined == 'function' &&
-		typeof undefined.amd == 'object' &&
-		undefined.amd
-	) {
-		undefined('punycode', function() {
-			return punycode;
-		});
-	} else if (freeExports && freeModule) {
+	if (freeExports && freeModule) {
 		if (module.exports == freeExports) {
 			// in Node.js, io.js, or RingoJS v0.8.0+
 			freeModule.exports = punycode;
@@ -565,6 +557,11 @@ var punycode = createCommonjsModule(function (module, exports) {
 	}
 
 }(commonjsGlobal));
+});
+
+var punycode$1 = /*#__PURE__*/Object.freeze({
+    default: punycode,
+    __moduleExports: punycode
 });
 
 var IPv6 = createCommonjsModule(function (module) {
@@ -584,12 +581,9 @@ var IPv6 = createCommonjsModule(function (module) {
 
 (function (root, factory) {
   // https://github.com/umdjs/umd/blob/master/returnExports.js
-  if ('object' === 'object' && module.exports) {
+  if (module.exports) {
     // Node
     module.exports = factory();
-  } else if (typeof undefined === 'function' && undefined.amd) {
-    // AMD. Register as an anonymous module.
-    undefined(factory);
   } else {
     // Browser globals (root is window)
     root.IPv6 = factory(root);
@@ -753,6 +747,11 @@ var IPv6 = createCommonjsModule(function (module) {
 }));
 });
 
+var IPv6$1 = /*#__PURE__*/Object.freeze({
+    default: IPv6,
+    __moduleExports: IPv6
+});
+
 var SecondLevelDomains = createCommonjsModule(function (module) {
 /*!
  * URI.js - Mutating URLs
@@ -770,12 +769,9 @@ var SecondLevelDomains = createCommonjsModule(function (module) {
 
 (function (root, factory) {
   // https://github.com/umdjs/umd/blob/master/returnExports.js
-  if ('object' === 'object' && module.exports) {
+  if (module.exports) {
     // Node
     module.exports = factory();
-  } else if (typeof undefined === 'function' && undefined.amd) {
-    // AMD. Register as an anonymous module.
-    undefined(factory);
   } else {
     // Browser globals (root is window)
     root.SecondLevelDomains = factory(root);
@@ -999,6 +995,17 @@ var SecondLevelDomains = createCommonjsModule(function (module) {
 }));
 });
 
+var SecondLevelDomains$1 = /*#__PURE__*/Object.freeze({
+    default: SecondLevelDomains,
+    __moduleExports: SecondLevelDomains
+});
+
+var require$$0 = ( punycode$1 && punycode ) || punycode$1;
+
+var require$$1 = ( IPv6$1 && IPv6 ) || IPv6$1;
+
+var require$$2 = ( SecondLevelDomains$1 && SecondLevelDomains ) || SecondLevelDomains$1;
+
 var URI = createCommonjsModule(function (module) {
 /*!
  * URI.js - Mutating URLs
@@ -1014,17 +1021,14 @@ var URI = createCommonjsModule(function (module) {
  */
 (function (root, factory) {
   // https://github.com/umdjs/umd/blob/master/returnExports.js
-  if ('object' === 'object' && module.exports) {
+  if (module.exports) {
     // Node
-    module.exports = factory(punycode, IPv6, SecondLevelDomains);
-  } else if (typeof undefined === 'function' && undefined.amd) {
-    // AMD. Register as an anonymous module.
-    undefined(['./punycode', './IPv6', './SecondLevelDomains'], factory);
+    module.exports = factory(require$$0, require$$1, require$$2);
   } else {
     // Browser globals (root is window)
     root.URI = factory(root.punycode, root.IPv6, root.SecondLevelDomains, root);
   }
-}(commonjsGlobal, function (punycode$$1, IPv6$$1, SLD, root) {
+}(commonjsGlobal, function (punycode, IPv6, SLD, root) {
   /*global location, escape, unescape */
   // FIXME: v2.0.0 renamce non-camelCase properties to uppercase
   /*jshint camelcase: false */
@@ -2075,10 +2079,10 @@ var URI = createCommonjsModule(function (module) {
       throw new TypeError('Hostname cannot be empty, if protocol is ' + protocol);
     } else if (v && v.match(URI.invalid_hostname_characters)) {
       // test punycode
-      if (!punycode$$1) {
+      if (!punycode) {
         throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-:_] and Punycode.js is not available');
       }
-      if (punycode$$1.toASCII(v).match(URI.invalid_hostname_characters)) {
+      if (punycode.toASCII(v).match(URI.invalid_hostname_characters)) {
         throw new TypeError('Hostname "' + v + '" contains characters other than [A-Z0-9.-:_]');
       }
     }
@@ -2265,7 +2269,7 @@ var URI = createCommonjsModule(function (module) {
     var name = false;
     var sld = false;
     var idn = false;
-    var punycode$$1 = false;
+    var punycode = false;
     var relative = !this._parts.urn;
 
     if (this._parts.hostname) {
@@ -2276,7 +2280,7 @@ var URI = createCommonjsModule(function (module) {
       name = !ip;
       sld = name && SLD && SLD.has(this._parts.hostname);
       idn = name && URI.idn_expression.test(this._parts.hostname);
-      punycode$$1 = name && URI.punycode_expression.test(this._parts.hostname);
+      punycode = name && URI.punycode_expression.test(this._parts.hostname);
     }
 
     switch (what.toLowerCase()) {
@@ -2317,7 +2321,7 @@ var URI = createCommonjsModule(function (module) {
         return !!this._parts.urn;
 
       case 'punycode':
-        return punycode$$1;
+        return punycode;
     }
 
     return null;
@@ -2946,10 +2950,10 @@ var URI = createCommonjsModule(function (module) {
   };
   p.normalizeHostname = function(build) {
     if (this._parts.hostname) {
-      if (this.is('IDN') && punycode$$1) {
-        this._parts.hostname = punycode$$1.toASCII(this._parts.hostname);
-      } else if (this.is('IPv6') && IPv6$$1) {
-        this._parts.hostname = IPv6$$1.best(this._parts.hostname);
+      if (this.is('IDN') && punycode) {
+        this._parts.hostname = punycode.toASCII(this._parts.hostname);
+      } else if (this.is('IPv6') && IPv6) {
+        this._parts.hostname = IPv6.best(this._parts.hostname);
       }
 
       this._parts.hostname = this._parts.hostname.toLowerCase();
@@ -3108,8 +3112,8 @@ var URI = createCommonjsModule(function (module) {
     }
 
     if (uri._parts.hostname) {
-      if (uri.is('punycode') && punycode$$1) {
-        t += punycode$$1.toUnicode(uri._parts.hostname);
+      if (uri.is('punycode') && punycode) {
+        t += punycode.toUnicode(uri._parts.hostname);
         if (uri._parts.port) {
           t += ':' + uri._parts.port;
         }

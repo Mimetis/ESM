@@ -160,7 +160,7 @@ export class router {
 }
 
 
-// singleton
+// 
 export default new router();
 
 
